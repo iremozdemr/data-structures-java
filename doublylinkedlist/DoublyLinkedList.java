@@ -150,6 +150,8 @@ public class DoublyLinkedList<E>{
         }
     }
 
+    // this method rotates the list to the right (clockwise) by the specified count if the count is positive
+    // or to the left (counter-clockwise) by the absolute value of the count if the count is negative
     public void rotate(int rotateCount){
         if (isEmpty() || size==1 || rotateCount==0) {
             return;
