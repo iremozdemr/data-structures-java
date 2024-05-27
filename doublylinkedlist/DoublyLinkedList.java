@@ -96,10 +96,14 @@ public class DoublyLinkedList<E>{
         }
     }
 
+    // this method returns a new list containing the intersection of elements from the original list and the given list2 
+    // it is assumed that both lists are sorted in ascending order 
+    // the new list will also be sorted in ascending order
     public DoublyLinkedList<E> findIntersection(DoublyLinkedList<E> list2){
         DoublyLinkedList<E> list1 = this;
         DoublyLinkedList<E> newList = new DoublyLinkedList<>();
 
+        /* 
         if(list1.isEmpty() && list2.isEmpty()){
             return newList;
         }
@@ -107,6 +111,11 @@ public class DoublyLinkedList<E>{
             return newList;
         }
         else if(list2.isEmpty()){
+            return newList;
+        }
+        */
+
+        if(list1.isEmpty() || list2.isEmpty()){
             return newList;
         }
         else{
