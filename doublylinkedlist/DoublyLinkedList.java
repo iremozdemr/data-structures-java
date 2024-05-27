@@ -96,6 +96,48 @@ public class DoublyLinkedList<E>{
         }
     }
 
+    public DoublyLinkedList<E> findIntersection(DoublyLinkedList<E> list2){
+        DoublyLinkedList<E> list1 = this;
+        DoublyLinkedList<E> newList = new DoublyLinkedList<>();
+
+        if(list1.isEmpty() && list2.isEmpty()){
+            return newList;
+        }
+        else if(list1.isEmpty()){
+            return newList;
+        }
+        else if(list2.isEmpty()){
+            return newList;
+        }
+        else{
+            Node<E> temp = head.next;
+            while(temp != tail){
+                if(list2.contains(temp.data)){
+                    newList.addLast(temp.data);
+                }
+                temp = temp.next;
+            }
+            return newList;
+        }
+    }
+
+    public boolean contains(E data){
+        if (isEmpty()){
+            return false;
+        }
+        else{
+            boolean result = false;
+            Node<E> temp = head.next;
+            while(temp != tail){
+                if(temp.data == data){
+                    result = true;
+                }
+                temp = temp.next;
+            }
+            return result;
+        }
+    }
+
     // returns a string representation of the list
     public String toString(){
         String string = "";
