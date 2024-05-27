@@ -130,6 +130,8 @@ public class DoublyLinkedList<E>{
         }
     }
 
+    // this method checks if the list contains a node with the specified data
+    // it returns true if such a node is found, otherwise it returns false
     public boolean contains(E data){
         if (isEmpty()){
             return false;
