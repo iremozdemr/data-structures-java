@@ -194,6 +194,59 @@ public class DoublyLinkedList<E>{
         }
     }
 
+    // merges the list1 with list2 in ascending order
+    // it is assumed that both lists are sorted in ascending order
+    // returns a new list containing the merged elements in ascending order
+    public DoublyLinkedList<E> mergeLists(DoublyLinkedList<E> list1,DoublyLinkedList<E> list2){
+        DoublyLinkedList<E> newList = new DoublyLinkedList<>();
+        if(list1.isEmpty() && list2.isEmpty()){
+            return newList;
+        }
+        else if(list1.isEmpty()){
+            return list2;
+        }
+        else if(list2.isEmpty()){
+            return list1;
+        }
+        else{
+            Node<E> current1 = list1.head.next;
+            Node<E> current2 = list2.head.next;
+
+            while(current1 != list1.tail && current2 != list2.tail){
+                if((int) current1.data == (int) current2.data){
+                    newList.addLast(current1.data);
+                    newList.addLast(current2.data);
+                    current1 = current1.next;
+                    current2 = current2.next;
+                }
+                else if((int) current1.data > (int) current2.data){
+                    newList.addLast(current2.data);
+                    current2 = current2.next;
+                }
+                else{
+                    newList.addLast(current1.data);
+                    current1 = current1.next;
+                }
+            }
+
+            if(current1 != list1.tail){
+                while(current1 != list1.tail){
+                    newList.addLast(current1.data);
+                    current1 = current1.next;    
+                }
+            }
+
+            if(current2 != list2.tail){
+                while(current2 != list2.tail){
+                    newList.addLast(current2.data);
+                    current2 = current2.next;    
+                }
+            }
+
+            return newList;
+        }
+    }
+
     // returns a string representation of the list
     public String toString(){
         String string = "";
