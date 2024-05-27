@@ -132,6 +132,7 @@ public class DoublyLinkedList<E>{
 
     // this method checks if the list contains a node with the specified data
     // it returns true if such a node is found, otherwise it returns false
+    // !!!!!!!use equals to compare data
     public boolean contains(E data){
         if (isEmpty()){
             return false;
@@ -140,12 +141,54 @@ public class DoublyLinkedList<E>{
             boolean result = false;
             Node<E> temp = head.next;
             while(temp != tail){
-                if(temp.data == data){
+                if(temp.data.equals(data)){
                     result = true;
                 }
                 temp = temp.next;
             }
             return result;
+        }
+    }
+
+    public void rotate(int rotateCount){
+        if (isEmpty() || size==1 || rotateCount==0) {
+            return;
+        }
+        else{
+            if(rotateCount > 0){
+                for(int i=0; i<rotateCount; i++){
+                    Node<E> newFirst = tail.prev;
+                    Node<E> newLast = tail.prev.prev;
+
+                    Node<E> newSecond = head.next;
+
+                    newLast.next = tail;
+                    tail.prev = newLast;
+
+                    newFirst.next = newSecond;
+                    newSecond.prev = newFirst;
+
+                    head.next = newFirst;
+                    newFirst.prev = head;
+                }
+            }
+            else{
+                rotateCount = Math.abs(rotateCount);
+                for(int i=0; i<rotateCount; i++){
+                    Node<E> newFirst = head.next.next;
+                    Node<E> newLast = head.next;
+
+                    Node<E> newSecondLast = tail.prev;
+
+                    head.next = newFirst;
+                    newFirst.prev = head;
+
+                    newSecondLast.next = newLast;
+                    newLast.prev = newSecondLast;
+                    newLast.next = tail;
+                    tail.prev = newLast;
+                }
+            }
         }
     }
 
