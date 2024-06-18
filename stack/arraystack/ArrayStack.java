@@ -4,6 +4,9 @@
 //push() O(1)
 //pop() O(1)
 
+//the space usage is O(N)
+//N = size of the array
+
 public class ArrayStack<E> implements StackInterface<E>{
 
     private int capacity;
@@ -11,12 +14,14 @@ public class ArrayStack<E> implements StackInterface<E>{
     //top element'in indexi
     private E[] data;
 
+    @SuppressWarnings("unchecked")
     public ArrayStack(){
         t = -1;
         capacity = 1000;
         data = (E[]) new Object[capacity];
     }
 
+    @SuppressWarnings("unchecked")
     public ArrayStack(int capacity){
         t = -1;
         this.capacity = capacity;
