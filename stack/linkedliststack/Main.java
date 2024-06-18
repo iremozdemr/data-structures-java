@@ -1,16 +1,25 @@
 public class Main{
     public static void main(String[] args) {
+        LinkedListStack<Integer> stack = new LinkedListStack<>();
+        
+        System.out.println("top element: " + stack.top());
 
-        LinkedListStack<String> stack = new LinkedListStack<>();
-        stack.push("a");
-        stack.push("b");
-        stack.push("c");
-        System.out.println(stack.toString());
-        stack.pop();
-        System.out.println(stack.toString());
-        stack.pop();
-        stack.pop();
-        stack.pop();
-        System.out.println(stack.toString());
+        stack.push(1);
+        System.out.println("top element: " + stack.top());
+
+        stack.push(2);
+        System.out.println("top element: " + stack.top());
+
+        stack.push(3);
+        System.out.println("top element: " + stack.top());
+
+        System.out.println("size: " + stack.size());
+
+        System.out.println("popped element: " + stack.pop());
+        System.out.println("popped element: " + stack.pop());
+        System.out.println("popped element: " + stack.pop());
+        System.out.println("popped element: " + stack.pop());
+
+        System.out.println("size: " + stack.size());
     }
 }

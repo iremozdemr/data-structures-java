@@ -1,4 +1,4 @@
-public class LinkedListStack<E>{
+public class LinkedListStack<E> implements StackInterface<E>{
 
     private SinglyLinkedList<E> list;
 
@@ -7,7 +7,7 @@ public class LinkedListStack<E>{
     }
 
     public int size(){
-        return list.getLength();
+        return list.size();
     }
 
     public boolean isEmpty(){
@@ -15,12 +15,16 @@ public class LinkedListStack<E>{
     }
 
     public void push(E element){
-        list.addLast(element);
+        list.addFirst(element);
     }
 
     public E pop(){
-        E poppedElement = list.removeLast();
+        E poppedElement = list.removeFirst();
         return poppedElement;
+    }
+
+    public E top() {
+        return list.first();
     }
 
     public String toString(){

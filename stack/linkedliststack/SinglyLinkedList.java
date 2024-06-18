@@ -1,34 +1,34 @@
-public class SinglyLinkedList<D>{
+public class SinglyLinkedList<E>{
 
-    private static class Node<D>{
+    private static class Node<E>{
 
-        private D data;
-        private Node<D> nextN;
+        private E data;
+        private Node<E> next;
 
-        public Node(D data, Node<D> nextN){
+        public Node(E data, Node<E> next){
             this.data = data;
-            this.nextN = nextN;
+            this.next = next;
         }
 
-        public D getData(){
+        public E getData(){
             return data;
         }
 
-        public void setData(D data){
+        public void setData(E data){
             this.data = data;
         }
 
-        public Node<D> getnextN(){
-            return nextN;
+        public Node<E> getNext(){
+            return next;
         }
 
-        public void setNextN(Node<D> nextN){
-            this.nextN = nextN;
+        public void setNext(Node<E> next){
+            this.next = next;
         }
     }
 
-    private Node<D> head = null;
-    private Node<D> tail = null;
+    private Node<E> head = null;
+    private Node<E> tail = null;
     private int size = 0;
 
     @Override
@@ -40,13 +40,22 @@ public class SinglyLinkedList<D>{
             return head.data.toString();
         }
         else{
-            Node<D> newHead = head;
+            Node<E> newHead = head;
             String string= "";
             for(int i = 0; i<size; i++){
                 string = string + " " + String.valueOf(newHead.data);
-                newHead = newHead.nextN;
+                newHead = newHead.next;
             }
             return string.substring(1);
+        }
+    }
+
+    public E first(){
+        if(isEmpty()){
+            return null;
+        }
+        else{
+            return head.data;
         }
     }
 
@@ -54,7 +63,7 @@ public class SinglyLinkedList<D>{
         return size == 0;
     }
 
-    public D deleteByIndex(int index){
+    public E deleteByIndex(int index){
         if(isEmpty() || index<0 || index>=size){
             return null;
         }
@@ -65,123 +74,108 @@ public class SinglyLinkedList<D>{
             return removeLast();
         }
         else{
-            Node<D> newHead = head;
+            Node<E> newHead = head;
             for(int i = 0; i<index-1; i++){
-                newHead = newHead.nextN;
+                newHead = newHead.next;
             }
-            D removedD = newHead.nextN.data;
-            newHead.nextN = newHead.nextN.nextN;
+            E removedD = newHead.next.data;
+            newHead.next = newHead.next.next;
             size--;
             return removedD; 
         }
     }
 
-    public void addLast(D data){
+    public void addLast(E data){
         if(isEmpty()){
-            Node<D> newNode = new Node<D>(data,null);
+            Node<E> newNode = new Node<E>(data,null);
             head = newNode;
             tail = newNode;
         }
         else if(size == 1){
-            Node<D> newNode = new Node<D>(data,null);
-            head.nextN = newNode;
+            Node<E> newNode = new Node<E>(data,null);
+            head.next = newNode;
             tail = newNode;
         }
         else{
-            Node<D> newNode = new Node<D>(data,null);
-            tail.nextN = newNode;
-            tail.nextN.data = data;
+            Node<E> newNode = new Node<E>(data,null);
+            tail.next = newNode;
+            tail.next.data = data;
             tail = newNode;
-            tail.nextN = null;
+            tail.next = null;
         }
         size++;
     }
 
-    public void addFirst(D data){
+    public void addFirst(E data){
         if(isEmpty()){
-            Node<D> newNode = new Node<D>(data,null);
+            Node<E> newNode = new Node<E>(data,null);
             head = newNode;
             tail = newNode;
         }
         else if(size == 1){
-            Node<D> secondNode = head;
-            Node<D> newNode = new Node<D>(data,secondNode);
+            Node<E> secondNode = head;
+            Node<E> newNode = new Node<E>(data,secondNode);
             head = newNode;
         }
         else{
-            Node<D> newNode = new Node<D>(data,head);
+            Node<E> newNode = new Node<E>(data,head);
             head = newNode;
         }
         size++;
     }
 
-    public D removeLast(){
+    public E removeLast(){
         if(isEmpty()){
             return null;
         }
         else if(size == 1){
-            D removedD = head.data;
+            E removedD = head.data;
             head = null;
             tail = null;
             size--;
             return removedD;
         }
         else{
-            Node<D> newHead = head;
-            Node<D> secondNode = null;
+            Node<E> newHead = head;
+            Node<E> secondNode = null;
             for(int i = 0; i<size-1; i++){
                 secondNode = newHead;
-                newHead = newHead.nextN;
+                newHead = newHead.next;
             }
-            D removedD = secondNode.nextN.data;
-            secondNode.nextN = null;
+            E removedD = secondNode.next.data;
+            secondNode.next = null;
             tail = secondNode;
             size--;
             return removedD;
         }
     }
 
-    public D removeFirst(){
+    public E removeFirst(){
         if(isEmpty()){
             return null;
         }
         else if(size == 1){
-            D removedD = head.data;
+            E removedD = head.data;
             head = null;
             tail = null;
             size--;
             return removedD;
         }
         else{
-            D removeD = head.data;
-            head = head.nextN;
+            E removeD = head.data;
+            head = head.next;
             size--;
             return removeD;
         }
     }
 
-    public int getLength(){
-        Node<D> temp = head;
+    public int size(){
+        Node<E> temp = head;
         int length = 0;
         while(temp != null){
-            temp = temp.nextN;
+            temp = temp.next;
             length++;
         }
         return length;
-    }
-    
-    public int getLengthRecursive(){
-        SinglyLinkedList<D> list = new SinglyLinkedList<>();
-        list.head = this.head;
-        list.tail = this.tail;
-        list.size = this.size;
-
-        if(list.head == null){
-            return 0;
-        }
-        else{
-            list.head = list.head.nextN;
-            return 1 + list.getLengthRecursive();
-        }
     }
 }
