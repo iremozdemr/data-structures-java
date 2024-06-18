@@ -17,14 +17,14 @@ public class StackExample1{
         //eleman ekler
 
         System.out.println(stack.search("item1"));
-        //ilk eleman en sondadir
+        //ilk eleman en sondadır
         System.out.println(stack.search("item2"));
         System.out.println(stack.search("item3"));
         System.out.println(stack.search("item7"));
-        //stackda bulunmuyorsa -1 dondurur
+        //stack'de bulunmuyorsa -1 döndürü
 
         System.out.println(stack.size());
-        //stackin eleman sayisini bulur
+        //stack'in eleman sayısını bulur
 
         System.out.println(stack);
         //tum stack elemanlarını ekrana yazar
