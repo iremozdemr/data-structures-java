@@ -1,14 +1,14 @@
 public class Main3 {
     public static void main(String[] args) {
         ArrayStack<Character> stack = new ArrayStack<>();
-        System.out.println(isMatched("()(( )){([( )])}")); 
-        System.out.println(isMatched("((( )(( )){([( )])}))")); 
-        System.out.println(isMatched(")(()){([()])}")); 
-        System.out.println(isMatched("({[])}")); 
-        System.out.println(isMatched("(")); 
+        System.out.println(isMatched1("()(( )){([( )])}")); 
+        System.out.println(isMatched1("((( )(( )){([( )])}))")); 
+        System.out.println(isMatched1(")(()){([()])}")); 
+        System.out.println(isMatched1("({[])}")); 
+        System.out.println(isMatched1("(")); 
     }
 
-    public static boolean isMatched(String string){
+    public static boolean isMatched1(String string){
         ArrayStack<Character> stack = new ArrayStack<>(string.length());
 
         for(int i=0; i<string.length(); i++){
