@@ -1,6 +1,7 @@
 package deque.linkedlistdeque;
 
 public class DoublyLinkedList<E>{
+    @SuppressWarnings("hiding")
     private class Node<E>{
         private E data; // data in the node
         private Node<E> prev; // reference to the previous node
@@ -57,6 +58,7 @@ public class DoublyLinkedList<E>{
     }    
 
     // adds a new node with data at the beginning of the list
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public void addFirst(E newData){
         if(isEmpty()){
             Node<E> newNode = new Node<E>(newData,head,tail); // creating a new node
@@ -73,6 +75,7 @@ public class DoublyLinkedList<E>{
     }
 
     // adds a new node with data at the end of the list
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public void addLast(E newData){
         if(isEmpty()){
             Node<E> newNode = new Node<E>(newData,head,tail); // creating a new node
