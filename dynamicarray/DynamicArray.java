@@ -1,3 +1,29 @@
+//big-omega notasyonu (Ω): 
+//bir algoritmanın çalışma süresinin alt sınırını belirtir
+
+//amortize analiz: 
+//bir dizi işlemin ortalama maliyetini analiz eder
+
+//geometrik artış:
+//büyüme yapıldığında arrayin lengthinin length*2 yapılması
+//amortize maliyet = O(1) 
+
+//aritmetik artış;
+//büyüme yapıldığında arrayin lengthinin length+10 yapılması
+//amortize maliyet = O(n^2) 
+
+//stringbuilder vs string concatenation:
+
+//stringbuilder:
+//sb.append("a").append("b").append("c")
+//stringbuilder dynamic array kullanır
+//stringbuilder daha hızlıdır
+
+//string concatenation:
+//"a" + "b" + "c"
+//string concatenation her birleştirme işleminde yeni bir array oluşturur
+//string concatenation daha yavaştır
+
 public class DynamicArray{
 
     int size;

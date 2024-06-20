@@ -1,109 +1,98 @@
-public class ArrayList<E> implements List<E>{
-    private int capacity;
+//size() O(1)
+//isEmpty() O(1)
+//get() O(1)
+//set() O(1)
+//add() O(n)
+//remove() O(n)
+
+public class ArrayList<E> implements ListInterface<E>{
+
     private int size;
-    private Object[] array;
+    private int capacity;
+    private E[] data;
 
+    @SuppressWarnings("unchecked")
     public ArrayList(){
-        capacity = 16;
         size = 0;
-        array = new Object[capacity];
+        capacity = 1000;
+        data = (E[]) new Object[capacity];
     }
 
+    @SuppressWarnings("unchecked")
     public ArrayList(int capacity){
-        this.capacity = capacity;
         size = 0;
-        array = new Object[capacity];
+        this.capacity = capacity;
+        data = (E[]) new Object[capacity];
     }
 
-    @Override
-    public int size() {
+    public int size(){
         return size;
     }
 
-    @Override
-    public boolean isEmpty() {
-        if(size == 0){
-            return true;
-        }
-        else{
-            return false;
-        }
+    public boolean isEmpty(){
+        return size == 0;
     }
 
-    @Override
-    public E get(int index) throws IndexOutOfBoundsException {
-        if(index > size-1){
+    public E get(int i) throws IndexOutOfBoundsException{
+        if(i<0){
             throw new IndexOutOfBoundsException();
         }
-        else if(index < 0){
+        else if(i >= size){
             throw new IndexOutOfBoundsException();
         }
         else{
-            return (E)array[index];
+            return data[i];
         }
     }
 
-    @Override
-    public E set(int index, E element) throws IndexOutOfBoundsException {
-        if(index > size-1){
+    public E set(int i,E element) throws IndexOutOfBoundsException{
+        if(i<0){
             throw new IndexOutOfBoundsException();
         }
-        else if(index < 0){
+        else if(i >= size){
             throw new IndexOutOfBoundsException();
         }
         else{
-            E old = (E)array[index];
-            array[index] = element;
-            return old;
+            E result = data[i];
+            data[i] = element;
+            return result;
         }
     }
 
-    @Override
-    public void add(int index, E element) throws IndexOutOfBoundsException, IllegalStateException{
-        if(index > size){
+    public void add(int i,E element) throws IndexOutOfBoundsException, IllegalStateException{
+        if(i<0){
             throw new IndexOutOfBoundsException();
         }
-        else if(index < 0){
+        else if(i >= size){
             throw new IndexOutOfBoundsException();
         }
-        else if(size == capacity){
+        else if(size == data.length){
             throw new IllegalStateException();
         }
         else{
-            if(index == size){
-                array[index] = element;
+            for(int j=size-1; j>=i; j--){
+                data[j+1] = data[j];
             }
-            else{
-                for(int i = size-1; i>index; i--){
-                    array[i+1] = array[i];
-                }
-                array[index] = element;
-                size++;
-            }
+            data[i] = element;
+            size++;
         }
     }
 
-    @Override
-    public E remove(int index) throws IndexOutOfBoundsException {
-        if(index > size-1){
+    public E remove(int i) throws IndexOutOfBoundsException{
+        if(i<0){
             throw new IndexOutOfBoundsException();
         }
-        else if(index < 0){
+        else if(i >= size){
             throw new IndexOutOfBoundsException();
         }
         else{
-            E removed = (E) array[index];
-            if(index == size-1){
-                array[index] = null;
+            E result = data[i];
+            for(int j=i; j<size; j++){
+                data[j] = data[j+1];
             }
-            else{
-                for(int i = index; i<size-1; i++){
-                    array[i] = array[i+1];
-                }
-                array[size-1] = null;
-            }
+            data[size-1] = null;
             size--;
-            return removed;
+            return result;
         }
     }
 }
