@@ -1,3 +1,5 @@
+package positionallist;
+
 public interface PositionalListInterface<E>{
     int size();
 
@@ -11,10 +13,10 @@ public interface PositionalListInterface<E>{
     //if it is not empty returns the last position
     //if it is empty returns null
 
-    Position<E> before(Position<E> p);
+    Position<E> before(Position<E> p) throws IllegalArgumentException;
     //if p is first returns null
 
-    Position<E> after(Position<E> p);
+    Position<E> after(Position<E> p) throws IllegalArgumentException;
     //if p is last returns null
 
     Position<E> addFirst(E element);
@@ -33,11 +35,11 @@ public interface PositionalListInterface<E>{
     //adds element after p
     //returns its new position
 
-    E set(Position<E> p, E element);
+    E set(Position<E> p, E element) throws IllegalArgumentException;
     //replaces the element stored at p
     //returns the old element
 
-    E remove(Position<E> p);
+    E remove(Position<E> p) throws IllegalArgumentException;
     //removes the element stored at p
     //returns the removed element
 }

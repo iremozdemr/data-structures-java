@@ -1,3 +1,5 @@
+import positionallist.Position;
+
 public interface PositionalListInterface<E>{
     int size();
 

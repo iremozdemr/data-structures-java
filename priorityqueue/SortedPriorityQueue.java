@@ -11,6 +11,9 @@
 
 import java.util.Comparator;
 
+import positionallist.Position;
+import positionallist.PositionalList;
+
 public class SortedPriorityQueue<K,V>{
     protected class Entry<K,V>{
         K key;

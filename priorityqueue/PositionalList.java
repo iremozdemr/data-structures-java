@@ -1,3 +1,6 @@
+import positionallist.Position;
+import positionallist.PositionalListInterface;
+
 public class PositionalList<E> implements PositionalListInterface<E>{
 
     private class Node<E> implements Position<E>{

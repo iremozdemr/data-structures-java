@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import positionallist.Position;
+
 //hierarchy
 //searching
 //xml parser

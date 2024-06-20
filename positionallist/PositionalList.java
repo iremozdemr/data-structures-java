@@ -1,5 +1,23 @@
+//size() O(1)
+//isEmpty() O(1)
+//first() O(1)
+//last() O(1)
+//before() O(1)
+//after() O(1)
+//addFirst() O(1)
+//addLast() O(1)
+//addBefore() O(1)
+//addAfter() O(1)
+//set() O(1)
+//remove() O(1)
+
+//space usage = O(n)
+
+package positionallist;
+
 public class PositionalList<E> implements PositionalListInterface<E>{
 
+    @SuppressWarnings("hiding")
     private class Node<E> implements Position<E>{
         private E element;
         private Node<E> prev;
@@ -27,8 +45,9 @@ public class PositionalList<E> implements PositionalListInterface<E>{
 
     public PositionalList(){
         head = new Node<E>(null,null,null);
-        tail = new Node<E>(null,head, null);
+        tail = new Node<E>(null,null, null);
         head.next = tail;
+        tail.prev = head;
         size = 0;
     }
 
@@ -39,12 +58,7 @@ public class PositionalList<E> implements PositionalListInterface<E>{
 
     @Override
     public boolean isEmpty() {
-        if(size == 0){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return size == 0;
     }
 
     @Override
@@ -53,7 +67,7 @@ public class PositionalList<E> implements PositionalListInterface<E>{
             return null;
         }
         else{
-            return (Position<E>)head.next;
+            return (Position<E>) head.next;
         }
     }
 
@@ -63,12 +77,12 @@ public class PositionalList<E> implements PositionalListInterface<E>{
             return null;
         }
         else{
-            return (Position<E>)tail.prev;
+            return (Position<E>) tail.prev;
         }
     }
 
     @Override
-    public Position<E> before(Position<E> p) {
+    public Position<E> before(Position<E> p) throws IllegalArgumentException{
         if(p == first()){
             return null;
         }
@@ -79,7 +93,7 @@ public class PositionalList<E> implements PositionalListInterface<E>{
     }
 
     @Override
-    public Position<E> after(Position<E> p) {
+    public Position<E> after(Position<E> p) throws IllegalArgumentException{
         if(p == last()){
             return null;
         }
@@ -124,13 +138,13 @@ public class PositionalList<E> implements PositionalListInterface<E>{
     }
 
     @Override
-    public Position<E> addBefore(Position<E> p, E element) {
+    public Position<E> addBefore(Position<E> p, E element) throws IllegalArgumentException{
         if(isEmpty()){
             return null;
         }
         else{
             Node<E> current = (Node<E>) p;
-            Node<E> newNode = new Node(element,null,null);
+            Node<E> newNode = new Node<E>(element,null,null);
             current.prev.next = newNode;
             newNode.prev = current.prev;
             current.prev = newNode;
@@ -140,7 +154,7 @@ public class PositionalList<E> implements PositionalListInterface<E>{
     }
 
     @Override
-    public Position<E> addAfter(Position<E> p, E element) {
+    public Position<E> addAfter(Position<E> p, E element) throws IllegalArgumentException{
         Node<E> current = (Node<E>) p;
         if(isEmpty()){
             return null;
@@ -152,7 +166,7 @@ public class PositionalList<E> implements PositionalListInterface<E>{
             return (Position<E>) newNode;
         }
         else{
-            Node<E> newNode = new Node(element,current,current.next);
+            Node<E> newNode = new Node<E>(element,current,current.next);
             current.next.prev = newNode;
             current.next = newNode;
             return (Position<E>) newNode;
@@ -160,7 +174,7 @@ public class PositionalList<E> implements PositionalListInterface<E>{
     }
 
     @Override
-    public E set(Position<E> p, E e) {
+    public E set(Position<E> p, E e) throws IllegalArgumentException{
         E old = null;
         if(isEmpty()){
             return old;
@@ -169,7 +183,7 @@ public class PositionalList<E> implements PositionalListInterface<E>{
             Node<E> node = (Node<E>) p;
             Node<E> current = head;
             while(current != tail.next){
-                if(current == p){
+                if(current == node){
                     old = current.element;
                     current.element = e;
                     break;
@@ -181,7 +195,7 @@ public class PositionalList<E> implements PositionalListInterface<E>{
     }
 
     @Override
-    public E remove(Position<E> p) {
+    public E remove(Position<E> p) throws IllegalArgumentException{
         Node<E> node = (Node<E>) p;
         if(isEmpty()){
             return null;
@@ -225,5 +239,4 @@ public class PositionalList<E> implements PositionalListInterface<E>{
             return string.substring(1);
         }
     }
-    
 }

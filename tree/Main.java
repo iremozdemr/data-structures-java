@@ -1,3 +1,5 @@
+import positionallist.Position;
+
 public class Main {
     public static void main(String[] args) {
         // creating an instance of binary tree and renamed it to 'tree'

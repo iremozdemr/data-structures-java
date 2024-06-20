@@ -1,3 +1,5 @@
+package positionallist;
+
 public class Main{
     public static void main(String[] args) {
         PositionalList<Integer> list = new PositionalList<>();
