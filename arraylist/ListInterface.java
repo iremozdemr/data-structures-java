@@ -1,3 +1,5 @@
+package arraylist;
+
 public interface ListInterface<E>{
     int size();
 

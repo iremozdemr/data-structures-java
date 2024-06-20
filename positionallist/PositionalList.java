@@ -15,6 +15,9 @@
 
 package positionallist;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class PositionalList<E> implements PositionalListInterface<E>{
 
     @SuppressWarnings("hiding")
@@ -238,5 +241,66 @@ public class PositionalList<E> implements PositionalListInterface<E>{
             }
             return string.substring(1);
         }
+    }
+
+    private class PositionIterator implements Iterator<Position<E>>{
+        
+        private Position<E> cursor = first();
+        private Position<E> recent = null;
+
+        @Override
+        public boolean hasNext() {
+            if(cursor == null){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+
+        @Override
+        public Position<E> next() {
+            if(cursor == null){
+                throw new NoSuchElementException();
+            }
+            else{
+                recent = cursor;
+                cursor = after(cursor);
+                return recent;
+            }
+        }
+    }
+
+    private class ElementIterator implements Iterator<E>{
+
+        Iterator<Position<E>> positionIterator = new PositionIterator();
+
+        @Override
+        public boolean hasNext() {
+            return positionIterator.hasNext();
+        }
+
+        @Override
+        public E next() {
+            return positionIterator.next().getElement();
+        }
+
+    }
+
+    private class PositionIterable implements Iterable<Position<E>>{
+
+        @Override
+        public Iterator<Position<E>> iterator() {
+            return new PositionIterator();
+        }
+        
+    }
+
+    public Iterable<Position<E>> positions(){
+        return new PositionIterable();
+    }
+
+    public Iterator<E> iterator(){ 
+        return new ElementIterator(); 
     }
 }

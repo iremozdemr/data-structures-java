@@ -5,7 +5,12 @@
 //add() O(n)
 //remove() O(n)
 
-public class ArrayList<E> implements ListInterface<E>{
+package arraylist;
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class ArrayList<E> implements ListInterface<E>, Iterable<E>{
 
     private int size;
     private int capacity;
@@ -23,6 +28,56 @@ public class ArrayList<E> implements ListInterface<E>{
         size = 0;
         this.capacity = capacity;
         data = (E[]) new Object[capacity];
+    }
+
+    private class ArrayIterator implements Iterator<E>{
+
+        private int index;
+        private boolean canRemove;
+
+        public ArrayIterator(){
+            canRemove = false;
+            index = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            if(index < data.length){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        @Override
+        public E next() throws NoSuchElementException{
+            if(hasNext() == false){
+                throw new NoSuchElementException();
+            }
+            else{
+                canRemove = true;
+                E result = data[index];
+                index++;
+                return result;
+            }
+        }
+
+        public void remove() throws IllegalStateException{
+            if(canRemove == false){
+                throw new IllegalStateException();
+            }
+            else{
+                ArrayList.this.remove(index-1);
+                index--;
+                canRemove = false;
+            }
+        }
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new ArrayIterator();
     }
 
     public int size(){
