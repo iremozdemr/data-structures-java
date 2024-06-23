@@ -17,6 +17,42 @@
 
 //level d en fazla 2^d node'a sahip olabilir
 
+//binary tree:
+//h+1 ≤ n ≤ 2^(h+1)−1
+//1 ≤ number of external nodes ≤ 2^h
+//h ≤ number of internal nodes ≤ 2^h - 1
+//log(n+1)-1 ≤ h ≤ n-1
+
+//full(proper) binary tree:
+//2h+1 ≤ n ≤ 2^(h+1)−1
+//h+1 ≤ number of external nodes ≤ 2^h
+//h ≤ number of internal nodes ≤ 2^h - 1
+//log(n+1)-1 ≤ h ≤ (n-1)/2
+//number of external nodes = number of internal nodes + 1
+
+//size() O(1)
+//isEmpty() O(1)
+//root() O(1)
+//parent() O(1)
+//left() O(1)
+//right() O(1)
+//sibling() O(1)
+//children() O(1)
+//numChildren() O(1)
+//isInternal() O(1)
+//isExternal() O(1)
+//isRoot() O(1)
+//addRoot() O(1)
+//addLeft() O(1)
+//addRight() O(1)
+//set() O(1)
+//attach() O(1)
+//remove() O(1)
+
+//depth() O(n)
+//height1() O(n)
+//height2() O(n^2)
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -154,7 +190,8 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
     //depth = p hariç p'nin ancestor sayısı
     //depth of p = depth of the parent + 1
     //depth of root = 0
-    //O(n) = O(dp + 1)
+    //O(dp + 1)
+    //O(n)
     //n = size of tree
     public int depth(Position<E> p){
         Node<E> node = (Node<E>) p;
