@@ -1,20 +1,22 @@
+//binary tree
+//tüm elementlerin 0,1,2 çocuğu olabilir
+
+//proper = full
+//tüm elementlerin 0,2 çocuğu olabilir
+
+//improper = proper olmayan
+
+//desicion tree  
+//proper tree olmak zorundadır
+
+//perfect = full(proper) + complete
+
 import java.util.ArrayList;
+import java.util.Iterator;
 
-import positionallist.Position;
+public class BinaryTree<E> extends AbstractBinaryTree<E>{
 
-//hierarchy
-//searching
-//xml parser
-//machine learning
-//dns
-//indexing
-//networking
-
-//perfect = full + complete
-
-public class BinaryTree<E>{
-
-    private class Node<E> implements Position<E>{
+    private static class Node<E> implements Position<E>{
         private E data;
         private Node<E> parent;
         private Node<E> left;
@@ -63,6 +65,7 @@ public class BinaryTree<E>{
         }
     }
 
+    //left child yoksa null döner
     public Position<E> left(Position<E> p){
         if(p instanceof Node<E>){
             Node<E> node = (Node<E>) p;
@@ -73,6 +76,7 @@ public class BinaryTree<E>{
         }
     }
 
+    //right child yoksa null döner
     public Position<E> right(Position<E> p){
         if(p instanceof Node<E>){
             Node<E> node = (Node<E>) p;
@@ -83,6 +87,7 @@ public class BinaryTree<E>{
         }
     }
 
+    //p = root ise null döner
     public Position<E> parent(Position<E> p){
         if(p instanceof Node<E>){
             Node<E> node = (Node<E>) p;
@@ -98,6 +103,7 @@ public class BinaryTree<E>{
         }
     }
 
+    //sibling yoksa null döner
     public Position<E> sibling(Position<E> p){
         Node<E> node = (Node<E>) p;
         if(node == root){
@@ -139,6 +145,11 @@ public class BinaryTree<E>{
         return list;
     }
 
+    //depth = p hariç p'nin ancestor sayısı
+    //depth of p = depth of the parent + 1
+    //depth of root = 0
+    //O(n) = O(dp + 1)
+    //n = size of tree
     public int depth(Position<E> p){
         Node<E> node = (Node<E>) p;
         if(isRoot(p)){
@@ -147,6 +158,41 @@ public class BinaryTree<E>{
         else{
             return depth(node.parent) + 1;
         }
+    }
+
+    //height of p = height of children + 1
+    //O(cp + 1)
+    //O(∑p(cp +1))
+    //O(n+∑p cp)
+    //O(n)
+    //cp = number of children of p
+    public int height1(Position<E> p){
+        int maxHeight = 0;
+
+        for(Position<E> c : children(p)){
+            if(height1(c) > maxHeight){
+                maxHeight = height1(c) + 1;
+            }
+        }
+
+        return maxHeight;
+    }
+
+    //height = maximum depth
+    //O(n + ∑p∈L(dp + 1))
+    //O(n^2)
+    public int height2(){
+        int maxDepth = 0;
+
+        for(Position<E> p : positions()){
+            if(isExternal(p)){
+                if(depth(p) > maxDepth){
+                    maxDepth = depth(p);
+                }
+            }
+        }
+
+        return maxDepth;
     }
 
     public boolean isRoot(Position<E> p){
@@ -312,5 +358,17 @@ public class BinaryTree<E>{
             }
             System.out.print(node.data + " ");
         }
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'iterator'");
+    }
+
+    @Override
+    public Iterable<Position<E>> positions() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'positions'");
     }
 }
