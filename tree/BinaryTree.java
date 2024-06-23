@@ -11,6 +11,12 @@
 
 //perfect = full(proper) + complete
 
+//root = level 0
+//left child of root = level 1
+//right child of root = level 1
+
+//level d en fazla 2^d node'a sahip olabilir
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -61,7 +67,7 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
             return null;
         }
         else{
-            return root;
+            return (Position<E>) root;
         }
     }
 
@@ -69,7 +75,7 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
     public Position<E> left(Position<E> p){
         if(p instanceof Node<E>){
             Node<E> node = (Node<E>) p;
-            return node.left;
+            return (Position<E>) node.left;
         }
         else{
             throw new IllegalStateException("not valid position type");
@@ -80,7 +86,7 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
     public Position<E> right(Position<E> p){
         if(p instanceof Node<E>){
             Node<E> node = (Node<E>) p;
-            return node.right;
+            return (Position<E>) node.right;
         }
         else{
             throw new IllegalStateException("not valid position type");
@@ -95,7 +101,7 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
                 return null;
             }
             else{
-                return node.parent;
+                return (Position<E>) node.parent;
             }
         }
         else{
@@ -112,10 +118,10 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
         else{
             Node<E> parent = node.parent;
             if(parent.left == node){
-                return parent.right;
+                return (Position<E>) parent.right;
             }
             if(parent.right == node){
-                return parent.left;
+                return (Position<E>) parent.left;
             }
         }
         return null;
@@ -137,10 +143,10 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
         ArrayList<Position<E>> list = new ArrayList<>();
         Node<E> node = (Node<E>) p;
         if(node.left != null){
-            list.add(node.left);
+            list.add((Position<E>) node.left);
         }
         if(node.right != null){
-            list.add(node.right);
+            list.add((Position<E>) node.right);
         }
         return list;
     }
@@ -223,47 +229,47 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
         }
     }
 
-    public Position<E> addRoot(E element){
+    public Position<E> addRoot(E element) throws IllegalArgumentException{
         if(isEmpty()){
             Node<E> newRoot = new Node<E>(element,null,null,null);
             root = newRoot;
             size++;
-            return newRoot;
+            return (Position<E>) newRoot;
         }
         else{
             throw new IllegalStateException("tree is not empty");
         }
     }
 
-    public Position<E> addLeft(Position<E> p,E element){
+    public Position<E> addLeft(Position<E> p,E element) throws IllegalArgumentException{
         Node<E> node = (Node<E>) p;
         Node<E> newNode = new Node<E>(element,null,null,null);
         if(node.left == null){
             node.left = newNode;
             newNode.parent = node;
             size++;
-            return newNode;
+            return (Position<E>) newNode;
         }
         else{
             throw new IllegalStateException("p already has a left child");
         }
     }
 
-    public Position<E> addRight(Position<E> p,E element){
+    public Position<E> addRight(Position<E> p,E element) throws IllegalArgumentException{
         Node<E> node = (Node<E>) p;
         Node<E> newNode = new Node<E>(element,null,null,null);
         if(node.right == null){
             node.right = newNode;
             newNode.parent = node;
             size++;
-            return newNode;
+            return (Position<E>) newNode;
         }
         else{
             throw new IllegalStateException("p already has a right child");
         }
     }
 
-    public E set(Position<E> p,E element){
+    public E set(Position<E> p,E element) throws IllegalArgumentException{
         if(p != null){
             Node<E> node = (Node<E>) p;
             E removed = node.data;
@@ -275,7 +281,7 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
         }
     }
 
-    public E remove(Position<E> p){
+    public E remove(Position<E> p) throws IllegalArgumentException{
         Node<E> node = (Node<E>) p;
         E removed = null;
         int children = numChildren(p);
@@ -301,7 +307,7 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
         return removed;
     }
 
-    public void attach(Position<E> p,BinaryTree<E> t1,BinaryTree<E> t2){
+    public void attach(Position<E> p,BinaryTree<E> t1,BinaryTree<E> t2) throws IllegalArgumentException{
         Node<E> node = (Node<E>) p;
         if(isExternal(node)){
             this.size = size + t1.size + t2.size;
