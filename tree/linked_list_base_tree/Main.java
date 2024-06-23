@@ -1,4 +1,4 @@
-public class Main2{
+public class Main{
     public static void main(String[] args) {
         //create a binary tree
         BinaryTree<Integer> tree = new BinaryTree<>();
