@@ -55,6 +55,8 @@
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class BinaryTree<E> extends AbstractBinaryTree<E>{
 
@@ -402,6 +404,38 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
             System.out.print(node.data + " ");
         }
     }
+
+    public String toString() {
+        if (isEmpty()) return "Tree is empty";
+    
+        StringBuilder sb = new StringBuilder();
+        Queue<Node<E>> queue = new LinkedList<>();
+        queue.add(root);
+        
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            boolean hasNextLevel = false;
+            for (int i = 0; i < levelSize; i++) {
+                Node<E> node = queue.poll();
+                if (node != null) {
+                    sb.append(node.data).append(" ");
+                    if (node.left != null || node.right != null) {
+                        hasNextLevel = true;
+                    }
+                    queue.add(node.left);
+                    queue.add(node.right);
+                } else {
+                    sb.append(". ");
+                    queue.add(null);
+                    queue.add(null);
+                }
+            }
+            sb.append("\n");
+            if (!hasNextLevel) break; // Stop if next level has no nodes
+        }
+    
+        return sb.toString();
+    }    
 
     @Override
     public Iterator<E> iterator() {
