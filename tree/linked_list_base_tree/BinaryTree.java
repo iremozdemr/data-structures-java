@@ -366,6 +366,126 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
         }
     }
 
+    public String toString() {
+        if (isEmpty()) return "Tree is empty";
+    
+        StringBuilder sb = new StringBuilder();
+        Queue<Node<E>> queue = new LinkedList<>();
+        queue.add(root);
+        
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            boolean hasNextLevel = false;
+            for (int i = 0; i < levelSize; i++) {
+                Node<E> node = queue.poll();
+                if (node != null) {
+                    sb.append(node.data).append(" ");
+                    if (node.left != null || node.right != null) {
+                        hasNextLevel = true;
+                    }
+                    queue.add(node.left);
+                    queue.add(node.right);
+                } else {
+                    sb.append(". ");
+                    queue.add(null);
+                    queue.add(null);
+                }
+            }
+            sb.append("\n");
+            if (!hasNextLevel) break; // Stop if next level has no nodes
+        }
+    
+        return sb.toString();
+    } 
+    
+    private class ElementIterator implements Iterator<E>{
+
+        Iterator<Position<E>> iterator = positions().iterator();
+
+        @Override
+        public boolean hasNext() {
+            return iterator.hasNext();
+        }
+
+        @Override
+        public E next() {
+            return iterator.next().getElement();
+        }
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new ElementIterator();
+    }
+
+    @Override
+    public Iterable<Position<E>> positions() {
+        return preorder();
+    }
+
+    public Iterable<Position<E>> inorder(){
+        ArrayList<Position<E>> list = new ArrayList<>();
+
+        if(!isEmpty()){
+            inorderHelper(list, root);
+        }
+
+        return list;
+    }
+
+    private void inorderHelper(ArrayList<Position<E>> list,Position<E> p){
+        if(left(p) != null){
+            inorderHelper(list, left(p));
+        }
+
+        list.add(p);
+
+        if(right(p) != null){
+            inorderHelper(list, right(p));
+        }
+    }
+
+    public Iterable<Position<E>> preorder(){
+        ArrayList<Position<E>> list = new ArrayList<>();
+
+        if(!isEmpty()){
+            preorderHelper(list, root);
+        }
+
+        return list;
+    }
+
+    private void preorderHelper(ArrayList<Position<E>> list,Position<E> p){
+        if(p != null){
+            list.add(p);
+
+            for(Position<E> c : children(p)){
+                preorderHelper(list, c);
+            }
+        }
+    }
+
+    public Iterable<Position<E>> postorder(){
+        ArrayList<Position<E>> list = new ArrayList<>();
+
+        if(!isEmpty()){
+            postorderHelper(list, root);
+        }
+
+        return list;
+    }
+
+    private void postorderHelper(ArrayList<Position<E>> list,Position<E> p){
+        if(p != null){
+            for(Position<E> c : children(p)){
+                postorderHelper(list, c);
+            }
+
+            list.add(p);
+        }
+    }
+
+    /* 
     public void inorder(Position<E> p){
         Node<E> node = (Node<E>) p;
         if(node != null){
@@ -404,48 +524,5 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
             System.out.print(node.data + " ");
         }
     }
-
-    public String toString() {
-        if (isEmpty()) return "Tree is empty";
-    
-        StringBuilder sb = new StringBuilder();
-        Queue<Node<E>> queue = new LinkedList<>();
-        queue.add(root);
-        
-        while (!queue.isEmpty()) {
-            int levelSize = queue.size();
-            boolean hasNextLevel = false;
-            for (int i = 0; i < levelSize; i++) {
-                Node<E> node = queue.poll();
-                if (node != null) {
-                    sb.append(node.data).append(" ");
-                    if (node.left != null || node.right != null) {
-                        hasNextLevel = true;
-                    }
-                    queue.add(node.left);
-                    queue.add(node.right);
-                } else {
-                    sb.append(". ");
-                    queue.add(null);
-                    queue.add(null);
-                }
-            }
-            sb.append("\n");
-            if (!hasNextLevel) break; // Stop if next level has no nodes
-        }
-    
-        return sb.toString();
-    }    
-
-    @Override
-    public Iterator<E> iterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'iterator'");
-    }
-
-    @Override
-    public Iterable<Position<E>> positions() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'positions'");
-    }
+    */
 }
