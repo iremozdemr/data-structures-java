@@ -1,8 +1,8 @@
 import java.util.LinkedList;
 
-public class LinkedListExample2{
+public class LinkedListExample2 {
     public static void main(String[] args) {
-        
+
         LinkedList<String> linkedList = new LinkedList<>();
 
         linkedList.offer("a");
@@ -11,7 +11,7 @@ public class LinkedListExample2{
         linkedList.offer("d");
         linkedList.offer("e");
 
-        linkedList.add(4,"item");
+        linkedList.add(4, "item");
         linkedList.remove("item");
         System.out.println(linkedList.peekFirst());
         System.out.println(linkedList.peekLast());
