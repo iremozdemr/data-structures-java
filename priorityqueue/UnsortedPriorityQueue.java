@@ -14,95 +14,95 @@ import java.util.Comparator;
 import positionallist.Position;
 import positionallist.PositionalList;
 
-public class UnsortedPriorityQueue<K,V>{
-    protected class Entry<K,V>{
+public class UnsortedPriorityQueue<K,V> extends AbstractPriorityQueue<K,V>{
+
+    protected static class PQEntry<K,V> implements Entry<K,V>{
         private K key;
         private V value;
 
-        public Entry(K key,V value){
+        public PQEntry(K key,V value){
             this.key = key;
             this.value = value;
         }
 
-        public String toString(){
-            return key + " " + value;
+        @Override
+        public K getKey() {
+            return key;
+        }
+
+        @Override
+        public V getValue() {
+            return value;
         }
     }
 
     private Comparator<K> comparator;
     private PositionalList<Entry<K,V>> list;
-    private int size;
 
-    public UnsortedPriorityQueue(Comparator<K> comparator){
-        this.comparator = comparator;
+    protected UnsortedPriorityQueue(Comparator<K> comparator) {
+        super(comparator);
+        list = new PositionalList<>();
     }
 
-    //O(1)
-    //returns the number of entries in pq
-    public int size(){
-        return size;
+    public int size() {
+        return list.size();
     }
 
-    //O(1)
     public boolean isEmpty(){
-        if(size == 0){
-            return true;
+        return list.isEmpty();
+    }
+
+    public Entry<K, V> insert(K key, V value) throws IllegalArgumentException {
+        checkKey(key);
+        Entry<K,V> newEntry = new PQEntry<K,V>(key, value);
+        list.addLast(newEntry);
+
+        return newEntry;
+    }
+
+    private Position<Entry<K,V>> findMin(){
+        Position<Entry<K,V>> min = list.first();
+
+        for(Position<Entry<K,V>> position : list.positions()){
+            if(compare(position.getElement(), min.getElement()) < 0){
+                min = position;
+            }
         }
-        else{
-            return false;
-        }
+
+        return min;
     }
 
-    protected int compare(Entry<K,V> e1,Entry<K,V> e2){
-        return comparator.compare(e1.key,e2.key);
-    }
-
-    //O(1)
-    public Entry<K,V> insert(K key,V value){
-        Entry<K,V> entry = new Entry(key,value);
-        list.addLast(entry);
-        size++;
-        return entry;
-    }
-
-    //O(n)
-    //returns null if the pq is empty
-    public Entry<K,V> min(){
-        if (isEmpty()) {
+    public Entry<K, V> min() {
+        if(isEmpty()){
             return null;
         }
         else{
-            Position<Entry<K,V>> min = list.last();
-            while(min != null){
-                if(compare(min.getElement(),list.before(min).getElement()) > 0){
-                    min = list.before(min);
-                }
-            }
-            return min.getElement();
+            return findMin().getElement();
         }
     }
 
-    //O(n)
-    //returns null if the pq is empty
-    public Entry<K,V> removeMin(){
-        if (isEmpty()) {
+    public Entry<K, V> removeMin() {
+        if(isEmpty()){
             return null;
         }
         else{
-            Position<Entry<K,V>> min = list.last();
-            while(min != null){
-                if(compare(min.getElement(),list.before(min).getElement()) > 0){
-                    min = list.before(min);
-                }
-            }
-            Entry<K,V> removed = min.getElement();
-            list.remove(min);
-            size--;
-            return removed;
+            Position<Entry<K,V>> minPosition = findMin();
+            Entry<K,V> minEntry = min();
+            list.remove(minPosition);
+            return minEntry;
         }
     }
 
-    public String toString(){
-        return list.toString();
+    protected int compare(Entry<K,V> a,Entry<K,V> b){
+        return comparator.compare(a.getKey(),b.getKey());
+    }
+
+    protected boolean checkKey(K key) throws IllegalArgumentException{
+        try{
+            return comparator.compare(key, key) == 0;
+        }
+        catch(Exception e){
+            throw new IllegalArgumentException("incompatible key");
+        }
     }
 }
