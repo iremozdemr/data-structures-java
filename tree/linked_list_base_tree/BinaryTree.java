@@ -1,5 +1,46 @@
+//binary tree türleri:
+
+//children sayısına göre:
+//-full
+//-degenerate(pathological)
+//-skewed
+
+//seviyelerin tamamlanmasına göre:
+//-complete
+//-perfect
+//-balanced
+
+//node değerlerine göre:
+//-search
+//-avl
+//-red black
+//b
+//b+
+//segment
+
+//unlabelled binary tree:
+//node'lar isimlendirilmemiştir
+//n node varsa:
+//T(n) = (2n)! / (n+1)!.n! farklı binary tree oluşturulabilir
+
+//unlabelled binary tree için hesaplamalar:
+//n'th catalan numbers: 1,1,2,5,14,42,132...
+//T(0) = 1
+//T(1) = 1
+//T(2) = 2
+//T(3) = T(0)*T(2) + T(2)*T(0) + T(1).T(1)
+//T(4) = T(0)*T(3) + T(3)*T(0) + T(1)*T(2) + T(2)*T(1)
+
+//labeled binary tree:
+//node'lar isimlendirilmiştir
+//n node varsa
+//T(n) = [(2n)! / (n+1)!.n!] . n! farklı binary tree oluşturulabilir
+
 //binary tree
 //tüm elementlerin 0,1,2 çocuğu olabilir
+
+//complete 
+//son seviye hariç tüm seviyeler tamamen dolu
 
 //proper = full
 //tüm elementlerin 0,2 çocuğu olabilir
