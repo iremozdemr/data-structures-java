@@ -526,6 +526,27 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
         }
     }
 
+    public Iterable<Position<E>> breadthfirst(){
+        ArrayList<Position<E>> list = new ArrayList<>();
+        if(isEmpty() == false){
+            Queue<Node<E>> queue = new LinkedList<>();
+            queue.add(root);
+
+            while(queue.isEmpty() == false){
+                Node<E> node = queue.poll();
+                list.add(node);
+
+                if(node.left != null){
+                    queue.add(node.left);
+                }
+                if(node.right != null){
+                    queue.add(node.right);
+                }
+            }
+        }
+        return list;
+    }
+
     /* 
     public void inorder(Position<E> p){
         Node<E> node = (Node<E>) p;
