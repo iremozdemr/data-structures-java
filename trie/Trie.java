@@ -1,8 +1,9 @@
-package trie;
+//insert() O(n)
+//search() O(n)
 
 public class Trie{
 
-    private class TrieNode{
+    private static class TrieNode{
 
         TrieNode[] childNodes;
     
@@ -11,18 +12,42 @@ public class Trie{
         public TrieNode(){
             wordEnd = false;
     
-            childNodes = new TrieNode[26];
+            childNodes = new TrieNode[alphabetSize];
     
-            for(int i=0; i<26; i++){
+            for(int i=0; i<alphabetSize; i++){
                 childNodes[i] = null;
             }
         }
     }
 
+    private static final int alphabetSize = 26;
     private TrieNode root;
+    private int wordCount;
 
     public Trie(){
         root = new TrieNode();
+        wordCount = 0;
+    }
+
+    public boolean isEmpty(){
+        int nullCount = 0;
+
+        for(int i=0; i<alphabetSize; i++){
+            if(root.childNodes[i] == null){
+                nullCount++;
+            }
+        }
+
+        if(nullCount == alphabetSize){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public int getWordCount(){
+        return wordCount;
     }
 
     public void insert(String key){
@@ -38,6 +63,7 @@ public class Trie{
             current = current.childNodes[index];
         }
         current.wordEnd = true;
+        wordCount++;
     }
 
     public boolean search(String key){
