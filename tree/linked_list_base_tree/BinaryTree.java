@@ -567,3 +567,48 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
     }
     */
 }
+
+//tree traversal:
+//depth first traversal
+//breadth first traversal
+
+//depth first traversal:
+//-inorder
+//-preorder
+//-postorder
+
+//inorder:
+//left -> root -> right
+//1-traverse the left subtree
+//2-visit the root
+//3-traverse the right subtree
+//binary search tree'de sayıları artan şekilde yazar
+//expression tree'de aritmetik ifadeler için kullanılır
+
+//preorder:
+//root -> left -> right
+//1-visit the root
+//2-traverse the left subtree
+//2-traverse the right subtree
+//tree'nin kopyası oluşturulurken kullanılır
+//expression tree'de prefix expression'ları almak için kullanılır
+
+//postorder:
+//1-traverse the left subtree
+//2-traverse the right subtree
+//3-visit the root
+//tree silinirken kullanılır
+//expression tree'de postfix expression'ları almak için kullanılır
+//garbage collection algoritmalarında kullanılır
+//manual memory management yapılan sistemlerde kullanılır
+
+//breadth first traversal (level order traversal):
+//sonraki level'a geçmeden ziyaret edilen level'daki tüm node'lar gezilir
+//1-boş bir queue oluştur
+//2-root node'u queue'ya ekle
+//3-queue boş olana kadar bu işlemleri yap:
+//3-queue'dan bir node çıkar ve ziyaret et
+//3-queue'ya çıkarılan node'un left child'ını ekle
+//3-queue'ya çıkarılan node'un right child'ını ekle
+//tree serialization için kullanılır
+//tree deserialization için kullanılır
