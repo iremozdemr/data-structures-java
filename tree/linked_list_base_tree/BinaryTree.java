@@ -450,6 +450,57 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
         return diameterHelper(root);
     }
 
+    public boolean isSubtree(Position<E> sub,Position<E> main){
+        Node<E> subNode = (Node<E>) sub;
+        Node<E> mainNode = (Node<E>) main;
+
+        if(subNode == null && mainNode == null){
+            return true;
+        }
+        else if(subNode == null && mainNode != null){
+            return true;
+        }
+        else if(mainNode == null){
+            return false;
+        }
+        else{
+            if(areIdentical(subNode,mainNode)){
+                return true;
+            }
+            else{
+                boolean statement1 = isSubtree(subNode, mainNode.left);
+                boolean statement2 = isSubtree(subNode, mainNode.right);
+
+                return statement1 || statement2;
+            }
+        }
+    }
+
+    public boolean areIdentical(Position<E> position1,Position<E> position2){
+        Node<E> node1 = (Node<E>) position1;
+        Node<E> node2 = (Node<E>) position2;
+
+        if(node1 == null && node2 == null){
+            return true;
+        }
+        else if(node1 == null && node2 != null){
+            return false;
+        }
+        else if(node1 != null && node2 == null){
+            return false;
+        }
+        else{
+            if(node1.data == node2.data){
+                boolean statement1 = areIdentical(node1.left,node2.left);
+                boolean statement2 = areIdentical(node1.right,node2.right);
+                return statement1 && statement2;
+            }
+            else{
+                return false;
+            }
+        }
+    }
+
     public void printNodesAtKDistance(Position<E> root,int k){
         Node<E> node = (Node<E>) root;
         if(node == null){
@@ -465,6 +516,21 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
         else{
             printNodesAtKDistance(node.left,k-1);
             printNodesAtKDistance(node.right,k-1);
+        }
+    }
+
+    public void printAncestors(Position<E> position){
+        Node<E> node = (Node<E>) position;
+
+        if(node == root){
+            return;
+        }
+        else if(node == null){
+            return;
+        }
+        else{
+            System.out.print(node.parent.data + " ");
+            printAncestors(node.parent);
         }
     }
 
