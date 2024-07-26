@@ -281,6 +281,22 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
         return maxDepth;
     }
 
+    //eğer node = null değilse
+    //height = left subtree ve right subtree'nin max'ı + 1
+    public int height3(Node<E> node){
+        if(node == null){
+            return 0;
+        }
+        else{
+            int leftHeight = height3(node.left);
+            int rightHeight = height3(node.left);
+            int max = Math.max(leftHeight,rightHeight);
+
+            int height = max+1;
+            return height;
+        }
+    }
+
     public boolean isRoot(Position<E> p){
         Node<E> node = (Node<E>) p;
         if(node == root){
@@ -404,6 +420,51 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
         }
         else{
             throw new IllegalArgumentException("p must be a leaf");
+        }
+    }
+
+    //bunlardan maximum olanı döner
+    //1-diameter of right subtree
+    //2-diameter of left subtree
+    //3-height of left subtree + height of right subtree + 1
+    public int diameterHelper(Node<E> root){
+        if(root == null){
+            return 0;
+        }
+        else{
+            int leftHeight = height3(root.left);
+            int rightHeight = height3(root.right);
+            int sumHeight = leftHeight+rightHeight+1;
+
+            int leftDiameter = diameterHelper(root.left);
+            int rightDiameter = diameterHelper(root.right);
+            int maxDiameter = Math.max(leftDiameter,rightDiameter);
+
+            int max = Math.max(maxDiameter,sumHeight);
+
+            return max;
+        }
+    }
+
+    public int diameter(){
+        return diameterHelper(root);
+    }
+
+    public void printNodesAtKDistance(Position<E> root,int k){
+        Node<E> node = (Node<E>) root;
+        if(node == null){
+            return;
+        }
+        else if(k < 0){
+            return;
+        }
+        else if(k == 0){
+            System.out.print(node.data);
+            return;
+        }
+        else{
+            printNodesAtKDistance(node.left,k-1);
+            printNodesAtKDistance(node.right,k-1);
         }
     }
 
@@ -588,48 +649,3 @@ public class BinaryTree<E> extends AbstractBinaryTree<E>{
     }
     */
 }
-
-//tree traversal:
-//depth first traversal
-//breadth first traversal
-
-//depth first traversal:
-//-inorder
-//-preorder
-//-postorder
-
-//inorder:
-//left -> root -> right
-//1-traverse the left subtree
-//2-visit the root
-//3-traverse the right subtree
-//binary search tree'de sayıları artan şekilde yazar
-//expression tree'de aritmetik ifadeler için kullanılır
-
-//preorder:
-//root -> left -> right
-//1-visit the root
-//2-traverse the left subtree
-//2-traverse the right subtree
-//tree'nin kopyası oluşturulurken kullanılır
-//expression tree'de prefix expression'ları almak için kullanılır
-
-//postorder:
-//1-traverse the left subtree
-//2-traverse the right subtree
-//3-visit the root
-//tree silinirken kullanılır
-//expression tree'de postfix expression'ları almak için kullanılır
-//garbage collection algoritmalarında kullanılır
-//manual memory management yapılan sistemlerde kullanılır
-
-//breadth first traversal (level order traversal):
-//sonraki level'a geçmeden ziyaret edilen level'daki tüm node'lar gezilir
-//1-boş bir queue oluştur
-//2-root node'u queue'ya ekle
-//3-queue boş olana kadar bu işlemleri yap:
-//3-queue'dan bir node çıkar ve ziyaret et
-//3-queue'ya çıkarılan node'un left child'ını ekle
-//3-queue'ya çıkarılan node'un right child'ını ekle
-//tree serialization için kullanılır
-//tree deserialization için kullanılır
