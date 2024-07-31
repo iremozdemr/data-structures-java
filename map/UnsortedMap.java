@@ -1,10 +1,11 @@
-import java.util.Map.Entry;
+//kullanılan methodlar O(n) zaman alır
 
+import java.util.Map.Entry;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class UnsortedMap<K,V> extends AbstractMap<K,V>{
+ public class UnsortedMap<K,V> extends AbstractMap<K,V>{
 
     private ArrayList<MapEntry<K,V>> list = new ArrayList<>();
 
